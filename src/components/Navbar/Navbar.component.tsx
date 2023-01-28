@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoAppsSharp } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.styles.css";
+import React, { useState } from "react";
 // import { useAppDispatch, useAppSelector } from "../store/hooks";
 // import { changeSearchTerm, clearSearchTerm, clearVideos } from "../store";
 // import { getSearchPageVideos } from "../store/reducers/getSearchPageVideos";
@@ -12,7 +13,7 @@ import "./Navbar.styles.css";
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [searchTxt, setSearchTxt] = useState("");
   const handleSearch = () => {
     if (location.pathname !== "/search") navigate("/search");
     else {
@@ -40,17 +41,17 @@ export default function Navbar() {
           <div className="search_container">
             <input
               type="text"
+              placeholder="Search"
               className="input_search"
-              // value={searchTerm}
-              // onChange={(e) => dispatch(changeSearchTerm(e.target.value))}
+              value={searchTxt}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchTxt(e.target.value)
+              }
             />
 
-            <AiOutlineClose
-
-            // onClick={() => dispatch(clearSearchTerm())}
-            />
+            <AiOutlineClose onClick={() => setSearchTxt("")} />
           </div>
-          <button className="btn_search">
+          <button className="btn_search" type="submit">
             <AiOutlineSearch
               style={{ fontSize: "1.25rem", lineHeight: "1.75rem" }}
             />
