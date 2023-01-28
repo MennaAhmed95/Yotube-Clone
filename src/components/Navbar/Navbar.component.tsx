@@ -15,11 +15,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [searchTxt, setSearchTxt] = useState("");
   const handleSearch = () => {
-    if (location.pathname !== "/search") navigate("/search");
-    else {
-      //   dispatch(clearVideos());
-      //   dispatch(getSearchPageVideos(false));
-    }
+    navigate(`/search/${searchTxt}`);
   };
 
   return (
@@ -49,7 +45,12 @@ export default function Navbar() {
               }
             />
 
-            <AiOutlineClose onClick={() => setSearchTxt("")} />
+            <AiOutlineClose
+              onClick={() => {
+                setSearchTxt("");
+                navigate("/");
+              }}
+            />
           </div>
           <button className="btn_search" type="submit">
             <AiOutlineSearch

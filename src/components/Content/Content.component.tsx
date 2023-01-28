@@ -17,7 +17,7 @@ export const Content = () => {
   );
   console.log(videos, activeCategory, loading);
 
-  const grid = <VideoGrid videos={videos} title={"Recommended"} />;
+  const grid = <VideoGrid videos={videos} />;
 
   const callBack = () => {};
   return (

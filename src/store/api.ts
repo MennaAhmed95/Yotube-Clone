@@ -4,7 +4,7 @@ console.log(process.env.DATA_API_KEY);
 const httpRequest = axios.create({
   baseURL: "https://youtube.googleapis.com/youtube/v3/",
   params: {
-    key: "AIzaSyCxGSsMKzGMhX0v5-CS0NvphP14C4ePrDs",
+    key: "AIzaSyBdT9NVewzwHrcGzMTpsPmTWtgUwH_5MyM",
   },
 });
 
