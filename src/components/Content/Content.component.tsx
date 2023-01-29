@@ -17,12 +17,12 @@ export const Content = () => {
   );
   console.log(videos, activeCategory, loading);
 
-  const grid = <VideoGrid videos={videos} />;
+  const grid = <VideoGrid videos={videos} time={true} />;
 
   const callBack = () => {};
   return (
     <InfiniteScroll callBack={callBack} isLoading={loading}>
-      <div>{grid}</div>
+      {grid}
     </InfiniteScroll>
   );
 };

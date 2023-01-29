@@ -16,7 +16,7 @@ export const Search = () => {
   console.log(videos);
 
   const previews = videos?.map((video: any) => (
-    <Preview isVertical video={video} key={video.id} search />
+    <Preview isVertical video={video} key={video.etag} search />
   ));
   const callBack = () => {};
   return (

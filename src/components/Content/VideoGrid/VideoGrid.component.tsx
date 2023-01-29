@@ -2,9 +2,9 @@ import { Preview } from "./Preview/Preview.component";
 
 import "./VideoGrid.styles.css";
 
-export const VideoGrid = ({ videos, isVertical }: any) => {
+export const VideoGrid = ({ videos, isVertical, time }: any) => {
   let preview = videos?.map((video: any) => (
-    <Preview key={video.id} video={video} />
+    <Preview key={video.id} video={video} time={time} />
   ));
   return (
     <>

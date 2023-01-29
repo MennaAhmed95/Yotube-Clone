@@ -7,7 +7,7 @@ import { timeSince } from "../../../../utils/timeSince";
 import { useEffect, useState } from "react";
 import httpRequest from "../../../../store/api";
 
-export const Preview = ({ video, isVertical, search }: any) => {
+export const Preview = ({ video, isVertical, search, time = true }: any) => {
   const infoClass: string = isVertical ? "verticalList" : "video_info";
   const navigate = useNavigate();
   /*for channels */
@@ -27,13 +27,14 @@ export const Preview = ({ video, isVertical, search }: any) => {
       } = await httpRequest("/videos", {
         params: {
           part: "contentDetails,statistics",
-          id: id.videoId,
+          id: id.videoId ?? video.id,
         },
       });
+
       setDuration(items[0].contentDetails.duration);
       setViews(items[0].statistics.viewCount);
     };
-    if (isVideo) get_video_details();
+    if (isVideo && search) get_video_details();
   }, [id, isVideo]);
 
   useEffect(() => {
@@ -48,16 +49,15 @@ export const Preview = ({ video, isVertical, search }: any) => {
       });
       setChannelIcon(items[0].snippet.thumbnails.default.url);
     };
-    get_channel_icon();
+    if (search) get_channel_icon();
   }, [channelId]);
 
   const handleClick = () => {
-    if (search) {
-      isVideo
-        ? navigate(`/watch/${id.videoId}`)
-        : navigate(`/channel/${_channelId}`);
-    } else navigate(`/watch?v=${video.id}`);
+    isVideo
+      ? navigate(`/watch/${id.videoId ?? video.id}`)
+      : navigate(`/channel/${_channelId}`);
   };
+
   return (
     <div className="video_preview">
       <div className="video_image" onClick={handleClick}>
@@ -73,9 +73,11 @@ export const Preview = ({ video, isVertical, search }: any) => {
         {isVideo && (
           <div className="video_time">
             <span>
-              {!video.contentDetails
-                ? formatTime(duration)
-                : formatTime(video.contentDetails?.duration!)}
+              {time
+                ? !video.contentDetails
+                  ? formatTime(duration)
+                  : formatTime(video.contentDetails?.duration!)
+                : ""}
             </span>
           </div>
         )}
@@ -86,7 +88,7 @@ export const Preview = ({ video, isVertical, search }: any) => {
           {isVideo && (
             <div>
               <img
-                src={channelIcon}
+                src={video.snippet.thumbnails.default.url ?? channelIcon}
                 alt={"icon"}
                 style={{
                   width: "30px",
